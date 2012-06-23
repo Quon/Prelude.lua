@@ -2,6 +2,7 @@
 
 local print = print
 local ipairs = ipairs
+local pairs = pairs
 local table = table
 local select = select
 
