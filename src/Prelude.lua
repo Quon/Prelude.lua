@@ -67,7 +67,7 @@ function Prelude.call_warpper(f)
   return function(...)
     local arg = table.pack(...)
     if arg.n == 0 then
-      return f()
+      return f
     else
       local f1 = f
       for i = 1, arg.n do
@@ -81,6 +81,7 @@ end
 local call_warpper = Prelude.call_warpper
 
 Prelude.each = call_warpper(curry(function(f, xs)
+  xs = xs or {}
   for k, v in pairs(xs) do
     f(k, v)
   end
