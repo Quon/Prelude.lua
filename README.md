@@ -14,7 +14,7 @@ Concept from [Haskell Prelude](http://www.haskell.org/ghc/docs/latest/html/libra
   insert  function: 012551A0   
   \> print(a)   
   function: 006DF7A0   
-  > print(a(print))   
+  \> print(a(print))   
   function: 005E33A0   
   \> print(a(print)(table))   
   concat  function: 01255430   
