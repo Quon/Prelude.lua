@@ -4,7 +4,7 @@ Concept from [Haskell Prelude](http://www.haskell.org/ghc/docs/latest/html/libra
 
 # ==example==
   \> require"Prelude"   
-  \> a = Prelude.call_warpper(Prelude.each)   
+  \> a = Prelude.each   
   \> a(print,table)   
   concat  function: 01255430   
   pack    function: 01255710   
