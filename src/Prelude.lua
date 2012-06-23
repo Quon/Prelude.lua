@@ -3,7 +3,8 @@
 local print = print
 local tavle = table
 local pairs = pairs
-Prelude= {}
+local table = table
+Prelude = {}
 
 --reverse from http://lua-users.org/wiki/CurriedLua
 -- reverse(...) : take some tuple and return a tuple of elements in reverse order
@@ -11,17 +12,17 @@ Prelude= {}
 -- e.g. "reverse(1,2,3)" returns 3,2,1
 function Prelude.reverse(...)
 
-   --reverse args by building a function to do it, similar to the unpack() example
-   local function reverse_h(acc, v, ...)
-      if 0 == select('#', ...) then
-	 return v, acc()
-      else
-         return reverse_h(function () return v, acc() end, ...)
-      end
-   end  
+  --reverse args by building a function to do it, similar to the unpack() example
+  local function reverse_h(acc, v, ...)
+    if 0 == select('#', ...) then
+      return v, acc()
+    else
+      return reverse_h(function() return v, acc() end, ...)
+    end
+  end
 
-   -- initial acc is the end of the list
-   return reverse_h(function () return end, ...)
+  -- initial acc is the end of the list
+  return reverse_h(function() return end, ...)
 end
 
 local reverse = Prelude.reverse
@@ -37,35 +38,34 @@ local reverse = Prelude.reverse
 -- partial_dosomething2 (c_value) -- returns the result of dosomething(a_value, b_value, c_value)
 function Prelude.curry(func, num_args)
 
-   -- currying 2-argument functions seems to be the most popular application
-   num_args = num_args or 2
+  -- currying 2-argument functions seems to be the most popular application
+  num_args = num_args or 2
 
-   -- no sense currying for 1 arg or less
-   if num_args <= 1 then return func end
+  -- no sense currying for 1 arg or less
+  if num_args <= 1 then return func end
 
-   -- helper takes an argtrace function, and number of arguments remaining to be applied
-   local function curry_h(argtrace, n)
-      if 0 == n then
-	 -- kick off argtrace, reverse argument list, and call the original function
-         return func(reverse(argtrace()))
-      else
-         -- "push" argument (by building a wrapper function) and decrement n
-         return function (onearg)
-                   return curry_h(function () return onearg, argtrace() end, n - 1)
-                end
+  -- helper takes an argtrace function, and number of arguments remaining to be applied
+  local function curry_h(argtrace, n)
+    if 0 == n then
+      -- kick off argtrace, reverse argument list, and call the original function
+      return func(reverse(argtrace()))
+    else
+      -- "push" argument (by building a wrapper function) and decrement n
+      return function(onearg)
+        return curry_h(function() return onearg, argtrace() end, n - 1)
       end
-   end  
-   
-   -- push the terminal case of argtrace into the function first
-   return curry_h(function () return end, num_args)
+    end
+  end
 
+  -- push the terminal case of argtrace into the function first
+  return curry_h(function() return end, num_args)
 end
 
 local curry = Prelude.curry
 
 function Prelude.call_warpper(f)
-return function(...)
-  local arg = table.pack(...)
+  return function(...)
+    local arg = table.pack(...)
     if arg.n == 0 then
       return f()
     else
