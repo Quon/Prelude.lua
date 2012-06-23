@@ -27,7 +27,7 @@ test under Lua 5.2
   \>   
   
 ## ==performance test==
-code:
+===code: ===  
   run100k = function(f)   
     local t1 = os.clock()   
     for i=1,100000 do   
@@ -41,7 +41,7 @@ code:
   run100k(Prelude.curry(function(x,y) return x+y end,2))   
   run100k(Prelude.call_warpper(Prelude.curry(function(x,y) return x+y end,2)))   
   
-  result on my pc:
+ ===result on my pc:===  
   \> run100k(function(x,y) return x+y end)   
   0.024999999999864   
   \> run100k(Prelude.curry(function(x,y) return x+y end,2))   

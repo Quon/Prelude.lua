@@ -1,9 +1,10 @@
 --usage: require"Prelude"
 
 local print = print
-local tavle = table
-local pairs = pairs
+local ipairs = ipairs
 local table = table
+local select = select
+
 Prelude = {}
 
 --reverse from http://lua-users.org/wiki/CurriedLua
@@ -82,10 +83,86 @@ local call_warpper = Prelude.call_warpper
 
 Prelude.each = call_warpper(curry(function(f, xs)
   xs = xs or {}
-  for k, v in pairs(xs) do
+  for k, v in ipairs(xs) do
     f(k, v)
   end
   return xs
 end, 2))
+
+Prelude.map = call_warpper(curry(function(f, xs)
+  xs = xs or {}
+  local res = {}
+  for k, v in ipairs(xs) do
+    res[k] = f(v)
+  end
+  return res
+end, 2))
+
+Prelude.foldl = call_warpper(curry(function(f, z, xs)
+  xs = xs or {}
+  for k, v in ipairs(xs) do
+    z = f(z, v)
+  end
+  return z
+end, 3))
+
+Prelude.filter = call_warpper(curry(function(f, xs)
+  xs = xs or {}
+  local res = {}
+  for k, v in ipairs(xs) do
+    if f(v) then
+      table.insert(res, v)
+    end
+  end
+  return res
+end, 2))
+
+Prelude.head = function(xs)
+  xs = xs or {}
+  if #xs == 0 then
+    return
+  else
+    return xs[1]
+  end
+end
+
+Prelude.tail = function(xs)
+  xs = xs or {}
+  local res = {}
+  if #xs < 2 then
+    return
+  else
+    for i=2, #xs do
+      table.insert(res, xs[i])
+    end
+    return res
+  end
+end
+
+Prelude.last = function(xs)
+  xs = xs or {}
+  if #xs == 0 then
+    return
+  else
+    return xs[#xs]
+  end
+end
+
+Prelude.init = function(xs)
+  xs = xs or {}
+  local res = {}
+  if #xs < 2 then
+    return
+  else
+    for i=1, #xs-1 do
+      table.insert(res, xs[i])
+    end
+    return res
+  end
+end
+
+Prelude.length = function(xs)
+  return #xs
+end
 
 return Prelude
