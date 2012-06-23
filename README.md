@@ -5,9 +5,6 @@ test under Lua 5.2
 ## ==example==
   \> require"Prelude"   
   \> a = Prelude.each   
-  \> print(a(print)(table))   
-  table: 00A79ED8   
-  \> a = Prelude.each   
   \> a(print, {1,2,3,4,5})   
   1       1   
   2       2   
