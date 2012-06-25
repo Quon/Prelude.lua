@@ -67,13 +67,13 @@ local curry = Prelude.curry
 
 function Prelude.call_warpper(f)
   return function(...)
-    local arg = table.pack(...)
-    if arg.n == 0 then
+    local n = select('#', ...)
+    if n == 0 then
       return f
     else
       local f1 = f
-      for i = 1, arg.n do
-        f1 = f1(arg[i])
+      for i = 1, n do
+        f1 = f1(select(i,...))
       end
       return f1
     end

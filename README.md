@@ -29,12 +29,12 @@ test under Lua 5.2
 ===code: ===  
 
     run100k = function(f)   
-    local t1 = os.clock()   
-    for i=1,100000 do   
-      f(i, i+1)   
-    end   
-    local t2 = os.clock()   
-    print(t2 - t1)   
+      local t1 = os.clock()   
+      for i=1,100000 do   
+        f(i, i+1)   
+      end   
+      local t2 = os.clock()   
+      print(t2 - t1)   
     end   
     
     run100k(function(x,y) return x+y end)   
