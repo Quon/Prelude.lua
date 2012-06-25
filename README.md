@@ -3,6 +3,7 @@ Prelude.lua
 Concept from [Haskell Prelude](http://www.haskell.org/ghc/docs/latest/html/libraries/base/Prelude.html) and [Lua Code for Curry (Currying Functions)](http://tinylittlelife.org/?p=249)
 test under Lua 5.2
 ## ==example==
+
     \> require"Prelude"   
     \> a = Prelude.each   
     \> a(print, {1,2,3,4,5})   
@@ -26,6 +27,7 @@ test under Lua 5.2
   
 ## ==performance test==
 ===code: ===  
+
     run100k = function(f)   
     local t1 = os.clock()   
     for i=1,100000 do   
@@ -40,6 +42,7 @@ test under Lua 5.2
     run100k(Prelude.call_warpper(Prelude.curry(function(x,y) return x+y end,2)))   
   
  ===result on my pc:===  
+ 
     \> run100k(function(x,y) return x+y end)   
     0.024999999999864   
     \> run100k(Prelude.curry(function(x,y) return x+y end,2))   
